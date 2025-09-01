@@ -24,7 +24,7 @@ public class FoundItem {
   private String name;
 
   @Column(name = "quantity",nullable = false)
-  private String quantity;
+  private Integer quantity;
 
   @Column(name = "description")
   private String description;
@@ -32,6 +32,6 @@ public class FoundItem {
   @Column(name = "location",nullable = false)
   private String location;
 
-  @Column(name = "user",nullable = false)
+  @Column(name = "user_id",nullable = false)
   private String user;
 }
