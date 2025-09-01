@@ -23,7 +23,7 @@ public class FoundItem_Controller {
   private final FoundItemService service;
 
 
-@PostMapping("/api/auth/foundItem/create")
+@PostMapping("/api/foundItem/create")
 public ResponseEntity<ResponseModelDTO<?>> createFoundItem(@RequestBody @Valid FoundItemDTO dto) {
     try {
         FoundItemDTO createdItem = service.saveFoundItem(dto);
@@ -32,5 +32,15 @@ public ResponseEntity<ResponseModelDTO<?>> createFoundItem(@RequestBody @Valid F
       throw new RuntimeException("An error occurred: " + e.getMessage());
     }
 }
+
+  @GetMapping("/api/foundItem/all")
+  public ResponseEntity<ResponseModelDTO<?>> getItems() {
+    try {
+      List<FoundItemDTO> items = service.getAllItems();
+      return ResponseEntity.ok(ResponseModelDTO.success(items, "Items retrieved successfully"));
+    } catch (Exception e) {
+      throw new RuntimeException("An error occurred: " + e.getMessage());
+    }
+  }
 
 }

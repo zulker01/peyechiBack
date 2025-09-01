@@ -35,4 +35,18 @@ public class FoundItemService {
     dto.setId(foundItem.getId());
     return dto;
   }
+
+  public List<FoundItemDTO> getAllItems() {
+    List<FoundItem> foundItems = foundItemRepository.findAll();
+    return foundItems.stream().map(item -> {
+      FoundItemDTO dto = new FoundItemDTO();
+      dto.setId(item.getId());
+      dto.setName(item.getName());
+      dto.setQuantity(item.getQuantity());
+      dto.setDescription(item.getDescription());
+      dto.setLocation(item.getLocation());
+      dto.setUser(item.getUser());
+      return dto;
+    }).toList();
+  }
 }
