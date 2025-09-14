@@ -34,7 +34,7 @@ public ResponseEntity<ResponseModelDTO<?>> createFoundItem(@RequestBody @Valid F
     }
 }
 
-  @GetMapping("/api/default/foundItem")
+  @PostMapping("/api/default/foundItem")
   public ResponseEntity<ResponseModelDTO<?>> getItems(@RequestBody PaginationDTO dto) {
     try {
       List<FoundItemDTO> items = service.getDefaultItemsByPagination(dto);
