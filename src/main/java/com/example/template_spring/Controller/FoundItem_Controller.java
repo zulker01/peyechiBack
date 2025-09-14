@@ -34,10 +34,10 @@ public ResponseEntity<ResponseModelDTO<?>> createFoundItem(@RequestBody @Valid F
     }
 }
 
-  @GetMapping("/api/foundItem/default")
+  @GetMapping("/api/default/foundItem")
   public ResponseEntity<ResponseModelDTO<?>> getItems(@RequestBody PaginationDTO dto) {
     try {
-      List<FoundItemDTO> items = service.getAllItemsByPagination(dto);
+      List<FoundItemDTO> items = service.getDefaultItemsByPagination(dto);
       return ResponseEntity.ok(ResponseModelDTO.success(items, "Items retrieved successfully"));
     } catch (Exception e) {
       throw new RuntimeException("An error occurred: " + e.getMessage());

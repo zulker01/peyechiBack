@@ -1,16 +1,13 @@
 package com.example.template_spring.Service;
 
 import com.example.template_spring.DTO.FoundItemDTO;
-import com.example.template_spring.DTO.UserDTO;
+import com.example.template_spring.DTO.PaginationDTO;
 import com.example.template_spring.Entity.FoundItem;
-import com.example.template_spring.Entity.User;
 import com.example.template_spring.Repository.FoundItemRepository;
-import com.example.template_spring.Repository.UserRepository;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +45,24 @@ public class FoundItemService {
       dto.setUser(item.getUser());
       return dto;
     }).toList();
+  }
+
+  public List<FoundItemDTO> getDefaultItemsByPagination(PaginationDTO dto){
+    try{
+      Page<FoundItem> page = foundItemRepository.findAll(
+              PageRequest.of(dto.getCurrent(), dto.getSize(),Sort.by("date")));
+      return page.stream().map(item -> {
+        FoundItemDTO foundItemDTO = new FoundItemDTO();
+        foundItemDTO.setId(item.getId());
+        foundItemDTO.setName(item.getName());
+        foundItemDTO.setQuantity(item.getQuantity());
+        foundItemDTO.setDescription(item.getDescription());
+        foundItemDTO.setLocation(item.getLocation());
+        foundItemDTO.setUser(item.getUser());
+        return foundItemDTO;
+      }).toList();
+    }catch (Exception e){
+      throw new RuntimeException("An error occurred: " + e.getMessage());
+    }
   }
 }
