@@ -1,6 +1,7 @@
 package com.example.template_spring.Controller;
 
 import com.example.template_spring.DTO.FoundItemDTO;
+import com.example.template_spring.DTO.PaginationDTO;
 import com.example.template_spring.DTO.ResponseModelDTO;
 import com.example.template_spring.DTO.UserDTO;
 import com.example.template_spring.Service.FoundItemService;
@@ -33,10 +34,10 @@ public ResponseEntity<ResponseModelDTO<?>> createFoundItem(@RequestBody @Valid F
     }
 }
 
-  @GetMapping("/api/foundItem/all")
-  public ResponseEntity<ResponseModelDTO<?>> getItems() {
+  @PostMapping("/api/default/foundItem")
+  public ResponseEntity<ResponseModelDTO<?>> getItems(@RequestBody PaginationDTO dto) {
     try {
-      List<FoundItemDTO> items = service.getAllItems();
+      List<FoundItemDTO> items = service.getDefaultItemsByPagination(dto);
       return ResponseEntity.ok(ResponseModelDTO.success(items, "Items retrieved successfully"));
     } catch (Exception e) {
       throw new RuntimeException("An error occurred: " + e.getMessage());

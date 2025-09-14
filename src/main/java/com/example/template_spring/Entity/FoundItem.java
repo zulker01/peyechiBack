@@ -1,6 +1,8 @@
 package com.example.template_spring.Entity;
 
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -34,4 +36,10 @@ public class FoundItem {
 
   @Column(name = "user_id",nullable = false)
   private String user;
+
+  @Column(name = "is_claimed",nullable = false)
+  private Boolean isClaimed;
+
+  @Column(name = "date",nullable = false)
+  private LocalDate date;
 }
