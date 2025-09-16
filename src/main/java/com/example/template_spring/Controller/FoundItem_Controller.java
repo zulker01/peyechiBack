@@ -9,6 +9,7 @@ import com.example.template_spring.Service.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,16 @@ public ResponseEntity<ResponseModelDTO<?>> createFoundItem(@RequestBody @Valid F
   public ResponseEntity<ResponseModelDTO<?>> getItems(@RequestBody PaginationDTO dto) {
     try {
       List<FoundItemDTO> items = service.getDefaultItemsByPagination(dto);
+      return ResponseEntity.ok(ResponseModelDTO.success(items, "Items retrieved successfully"));
+    } catch (Exception e) {
+      throw new RuntimeException("An error occurred: " + e.getMessage());
+    }
+  }
+
+  @PostMapping("/api/user/foundItem/{user_id}")
+  public ResponseEntity<ResponseModelDTO<?>> getItemsByUser(@RequestBody PaginationDTO dto, @PathVariable("user_id") String user_id) {
+    try {
+      List<FoundItemDTO> items = service.getUserItemsByPagination(user_id,dto);
       return ResponseEntity.ok(ResponseModelDTO.success(items, "Items retrieved successfully"));
     } catch (Exception e) {
       throw new RuntimeException("An error occurred: " + e.getMessage());

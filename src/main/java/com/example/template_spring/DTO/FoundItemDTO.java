@@ -1,5 +1,7 @@
 package com.example.template_spring.DTO;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +18,5 @@ public class FoundItemDTO {
   private String description;
   private String location;
   private String user;
+  private LocalDate dateFound;
 }
