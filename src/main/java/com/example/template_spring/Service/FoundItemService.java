@@ -70,4 +70,23 @@ public class FoundItemService {
       throw new RuntimeException("An error occurred: " + e.getMessage());
     }
   }
+
+  public List<FoundItemDTO> getUserItemsByPagination(String userId,PaginationDTO dto){
+    try{
+      Page<FoundItem> page = foundItemRepository.findByUserId(userId,
+              PageRequest.of(dto.getCurrent(), dto.getSize(),Sort.by("date")));
+      return page.stream().map(item -> {
+        FoundItemDTO foundItemDTO = new FoundItemDTO();
+        foundItemDTO.setId(item.getId());
+        foundItemDTO.setName(item.getName());
+        foundItemDTO.setQuantity(item.getQuantity());
+        foundItemDTO.setDescription(item.getDescription());
+        foundItemDTO.setLocation(item.getLocation());
+        foundItemDTO.setUser(item.getUser().getUsername());
+        return foundItemDTO;
+      }).toList();
+    }catch (Exception e){
+      throw new RuntimeException("An error occurred: " + e.getMessage());
+    }
+  }
 }
