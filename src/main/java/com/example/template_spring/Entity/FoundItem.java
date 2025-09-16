@@ -3,9 +3,13 @@ package com.example.template_spring.Entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +38,9 @@ public class FoundItem {
   @Column(name = "location",nullable = false)
   private String location;
 
-  @Column(name = "user_id",nullable = false)
-  private String user;
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+  private User user;
 
   @Column(name = "is_claimed",nullable = false)
   private Boolean isClaimed;
