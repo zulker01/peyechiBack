@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +29,8 @@ public class FoundItemService {
     foundItem.setDescription(dto.getDescription());
     foundItem.setLocation(dto.getLocation());
     foundItem.setUser(dto.getUser());
+    foundItem.setIsClaimed(false);
+    foundItem.setDate(dto.getDateFound()==null? LocalDate.now():dto.getDateFound());
     foundItemRepository.save(foundItem);
     dto.setId(foundItem.getId());
     return dto;
